@@ -12,14 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layout.main');
 });
-Route::get('/test', function () {
-    return view('welcome');
+
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function (){
+    Route::resource('news', 'NewsController');
 });
-Route::get('/surer', function () {
-    return view('welcome');
+
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function (){
+    Route::resource('categories', 'CategoriesController');
 });
-Route::get('/sufer', function () {
-    return view('welcome');
-});
+
+//php artisan route:list
