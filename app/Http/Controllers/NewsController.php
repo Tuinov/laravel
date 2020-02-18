@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
-
+namespace App\Http\Controllers;
 
 use App\News;
 use Illuminate\Http\Request;
 
-class CategoriesController extends BaseController
+class NewsController extends Controller
 {
-
-    public $newsModel;
+    private $newsModel;
 
     public function __construct()
     {
+        //  $this->middleware('auth');
         $this->newsModel = new News;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,10 +22,9 @@ class CategoriesController extends BaseController
      */
     public function index()
     {
-        $admin = true;
-        $categories = $this->newsModel->getAllCategories();
-        return view('admin.index', compact('categories', 'admin'));
-
+        $news = $this->newsModel->getAllNews();
+        //dd($news);
+        return view('news.index', compact('news'));
     }
 
     /**
@@ -35,7 +34,7 @@ class CategoriesController extends BaseController
      */
     public function create()
     {
-        dd(__METHOD__);
+        //
     }
 
     /**
@@ -46,7 +45,7 @@ class CategoriesController extends BaseController
      */
     public function store(Request $request)
     {
-        dd(__METHOD__,$request);
+        //
     }
 
     /**
@@ -55,32 +54,17 @@ class CategoriesController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($idCategory = null)
+    public function show($id)
+{
+    //dd(__METHOD__, $id);
+    $news = $this->newsModel->getOneNews($id);
+    //dd($news);
+    return view('news.show', compact('news'));
+}
+
+    public function showCategory($id)
     {
-        $categoryName = $this->getNameCategory($idCategory);
-
-        $html = '<h1> Новости из категории: '. $categoryName .'</h1>';
-
-        foreach ($this->news as $news) {
-            if($news['category'] == $idCategory) {
-                $html .= <<<php
-    <h1><a href="/admin/news/{$news['id']}">{$news['title']}</h1></a>
-php;
-            }
-        }
-        $html .= <<<php
-    <a href="/">На главную</a>
-php;
-        return $html;
-    }
-
-    public function getNameCategory($idCategory) {
-
-        foreach ($this->categories as $category) {
-            if($category['id'] == $idCategory) {
-                return $category['name'];
-            }
-        }
+        //
     }
 
     /**
@@ -91,7 +75,7 @@ php;
      */
     public function edit($id)
     {
-        dd(__METHOD__);
+        //
     }
 
     /**
@@ -103,7 +87,7 @@ php;
      */
     public function update(Request $request, $id)
     {
-        dd(__METHOD__);
+        //
     }
 
     /**
@@ -114,6 +98,6 @@ php;
      */
     public function destroy($id)
     {
-        dd(__METHOD__);
+        //
     }
 }
