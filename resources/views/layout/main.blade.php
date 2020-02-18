@@ -73,13 +73,14 @@
 
             <div class="links">
                 <a href="/">Главная</a>
-                <a href="admin/news">Новости</a>
+                <a href="/news">Новости</a>
                 <a href="admin/categories">Категории</a>
 
             </div>
 
+
             <div>
-                <h3>Добро пожаловать!!</h3>
+
                 @yield('content')
             </div>
         </div>
