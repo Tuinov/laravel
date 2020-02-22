@@ -5,7 +5,8 @@
         <div class="row">
             <div class="col-md-12">
                 <nav class="navbar">
-                    <a class="btn btn-primary" href="">Добавить</a>
+                    <a class="btn btn-primary" href="{{ route('admin.categories.create') }}">Добавить категорию</a>
+                    <a class="btn btn-primary" href="{{ route('admin.news.create') }}">Добавить новость</a>
                 </nav>
                 <div class="card">
                     <div class="card-body">
@@ -23,7 +24,7 @@
 
                                 <tr>
                                     <td>{{ $item['id'] }}</td>
-                                    <td><a href="">{{ $item['name'] }}</a></td>
+                                    <td><a href="{{ route('category.show', ['idCategory' => $item['id']]) }}">{{ $item['name'] }}</a></td>
                                     <td>{{ $item['id'] }}</td>
                                 </tr>
                             @endforeach
@@ -31,6 +32,10 @@
                         </table>
                     </div>
                 </div>
+                <nav class="navbar">
+                    <a class="btn btn-primary" href="{{ route('admin.categories.json') }}">json</a>
+                    <a class="btn btn-primary" href="{{ route('admin.categories.file') }}">Выгрузить категории</a>
+                </nav>
             </div>
         </div>
     </div>

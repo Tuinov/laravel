@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\News;
 use Illuminate\Http\Request;
 
 class NewsController extends BaseController
 {
+    public $newsModel;
 
+    public function __construct()
+    {
+        $this->newsModel = new News;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,22 +20,11 @@ class NewsController extends BaseController
      */
     public function index()
     {
-        $html = <<<php
-    <a href="/">На главную</a>
-php;
-        foreach ($this->news as $news) {
-
-                $html .= <<<php
-    <h1>{$news['title']}</h1>
-    <h3>{$news['text']}</h3>
-php;
-
-        }
-        $html .= <<<php
-    <a href="news/create">добавить новость</a>
-php;
-        return $html;
+        $news = $this->newsModel->getAllNews();
+        //dd($news);
+        return view('news.index', compact('news'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,7 +33,8 @@ php;
      */
     public function create()
     {
-        return 'создать новость';
+        $categories = $this->newsModel->getAllCategories();
+        return view('admin.createNews', compact('categories'));
     }
 
     /**
@@ -49,7 +45,10 @@ php;
      */
     public function store(Request $request)
     {
-        dd(__METHOD__, $this->news, $this->categories);
+        $request->flash();
+        $this->newsModel->addNews($request->except('_token'));
+
+        return redirect()->route('admin.news.create')->with(['success' => 'Успешно сохранено']);
     }
 
     /**
@@ -60,18 +59,9 @@ php;
      */
     public function show($id)
     {
-        $html = <<<php
-    <a href="/">На главную</a>
-php;
-        foreach ($this->news as $news) {
-            if($news['id'] == $id) {
-                $html .= <<<php
-    <h1>{$news['title']}</h1>
-    <h3>{$news['text']}</h3></a>
-php;
-            }
-        }
-        return $html;
+        $news = $this->newsModel->getOneNews($id);
+        //dd($news);
+        return view('news.show', compact('news'));
     }
 
     /**
@@ -82,7 +72,7 @@ php;
      */
     public function edit($id)
     {
-        dd(__METHOD__, $this->news, $this->categories);
+        dd(__METHOD__, $id);
     }
 
     /**

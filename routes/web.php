@@ -15,11 +15,11 @@ Route::get('/','NewsController@index');
 
 
 Route::group([], function (){
-    //Route::get('/news', 'NewsController@index');
+    Route::get('/news', 'NewsController@index')->name('home');
     Route::get('/news/{id}', 'NewsController@show')->name('show');
 });
 
-Route::get('/categories', 'CategoryController@index');
+Route::get('/categories', 'CategoryController@index')->name('categories.index');
 Route::get('/category/{idCategory}', 'CategoryController@show')->name('category.show');
 
 //Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function (){
@@ -30,8 +30,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
     Route::resource('categories', 'CategoriesController');
 });
 
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], function (){
+    Route::resource('news', 'NewsController');
+    Route::get('/json', 'CategoriesController@json')->name('categories.json');
+    Route::get('/file', 'CategoriesController@file')->name('categories.file');
+});
+
 //php artisan route:list
 
 Auth::routes();
 
-Route::get('/home', 'NewsController@index')->name('home');
+

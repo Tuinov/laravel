@@ -1,0 +1,37 @@
++--------+-----------+----------------------------------+--------------------------+------------------------------------------------------------------------+--------------+
+| Domain | Method    | URI                              | Name                     | Action                                                                 | Middleware   |
++--------+-----------+----------------------------------+--------------------------+------------------------------------------------------------------------+--------------+
+|        | GET|HEAD  | /                                |                          | App\Http\Controllers\NewsController@index                              | web          |
+|        | GET|HEAD  | admin/categories                 | admin.categories.index   | App\Http\Controllers\Admin\CategoriesController@index                  | web          |
+|        | POST      | admin/categories                 | admin.categories.store   | App\Http\Controllers\Admin\CategoriesController@store                  | web          |
+|        | GET|HEAD  | admin/categories/create          | admin.categories.create  | App\Http\Controllers\Admin\CategoriesController@create                 | web          |
+|        | GET|HEAD  | admin/categories/{category}      | admin.categories.show    | App\Http\Controllers\Admin\CategoriesController@show                   | web          |
+|        | PUT|PATCH | admin/categories/{category}      | admin.categories.update  | App\Http\Controllers\Admin\CategoriesController@update                 | web          |
+|        | DELETE    | admin/categories/{category}      | admin.categories.destroy | App\Http\Controllers\Admin\CategoriesController@destroy                | web          |
+|        | GET|HEAD  | admin/categories/{category}/edit | admin.categories.edit    | App\Http\Controllers\Admin\CategoriesController@edit                   | web          |
+|        | GET|HEAD  | admin/file                       | admin.categories.file    | App\Http\Controllers\Admin\CategoriesController@file                   | web          |
+|        | GET|HEAD  | admin/json                       | admin.categories.json    | App\Http\Controllers\Admin\CategoriesController@json                   | web          |
+|        | GET|HEAD  | admin/news                       | admin.news.index         | App\Http\Controllers\Admin\NewsController@index                        | web          |
+|        | POST      | admin/news                       | admin.news.store         | App\Http\Controllers\Admin\NewsController@store                        | web          |
+|        | GET|HEAD  | admin/news/create                | admin.news.create        | App\Http\Controllers\Admin\NewsController@create                       | web          |
+|        | DELETE    | admin/news/{news}                | admin.news.destroy       | App\Http\Controllers\Admin\NewsController@destroy                      | web          |
+|        | PUT|PATCH | admin/news/{news}                | admin.news.update        | App\Http\Controllers\Admin\NewsController@update                       | web          |
+|        | GET|HEAD  | admin/news/{news}                | admin.news.show          | App\Http\Controllers\Admin\NewsController@show                         | web          |
+|        | GET|HEAD  | admin/news/{news}/edit           | admin.news.edit          | App\Http\Controllers\Admin\NewsController@edit                         | web          |
+|        | GET|HEAD  | api/user                         |                          | Closure                                                                | api,auth:api |
+|        | GET|HEAD  | categories                       | categories.index         | App\Http\Controllers\CategoryController@index                          | web          |
+|        | GET|HEAD  | category/{idCategory}            | category.show            | App\Http\Controllers\CategoryController@show                           | web          |
+|        | GET|HEAD  | login                            | login                    | App\Http\Controllers\Auth\LoginController@showLoginForm                | web,guest    |
+|        | POST      | login                            |                          | App\Http\Controllers\Auth\LoginController@login                        | web,guest    |
+|        | POST      | logout                           | logout                   | App\Http\Controllers\Auth\LoginController@logout                       | web          |
+|        | GET|HEAD  | news                             | home                     | App\Http\Controllers\NewsController@index                              | web          |
+|        | GET|HEAD  | news/{id}                        | show                     | App\Http\Controllers\NewsController@show                               | web          |
+|        | GET|HEAD  | password/confirm                 | password.confirm         | App\Http\Controllers\Auth\ConfirmPasswordController@showConfirmForm    | web,auth     |
+|        | POST      | password/confirm                 |                          | App\Http\Controllers\Auth\ConfirmPasswordController@confirm            | web,auth     |
+|        | POST      | password/email                   | password.email           | App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail  | web          |
+|        | GET|HEAD  | password/reset                   | password.request         | App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm | web          |
+|        | POST      | password/reset                   | password.update          | App\Http\Controllers\Auth\ResetPasswordController@reset                | web          |
+|        | GET|HEAD  | password/reset/{token}           | password.reset           | App\Http\Controllers\Auth\ResetPasswordController@showResetForm        | web          |
+|        | GET|HEAD  | register                         | register                 | App\Http\Controllers\Auth\RegisterController@showRegistrationForm      | web,guest    |
+|        | POST      | register                         |                          | App\Http\Controllers\Auth\RegisterController@register                  | web,guest    |
++--------+-----------+----------------------------------+--------------------------+------------------------------------------------------------------------+--------------+
