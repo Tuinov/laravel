@@ -6,9 +6,10 @@
 
 @section('content')
     <div class="container">
-        <div>
+        <div class="row justify-content-center">
             @forelse($categories as $item)
-                <div>
+                <div class="col-md-12 card">
+                    <div class="card-body">
                     <h1>Категория:
                         <a href="{{ route('category.show', ['idCategory' => $item['id']]) }}">{{ $item['name'] }}</a>
                     </h1>
@@ -19,7 +20,7 @@
 
                     @endif
                     {{--   @dump($loop)--}}
-
+                    </div>
                 </div>
 
             @empty

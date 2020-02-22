@@ -35,7 +35,8 @@ class CategoriesController extends BaseController
      */
     public function create()
     {
-        dd(__METHOD__);
+        $admin = true;
+        return view('admin.createCategory', compact('admin'));
     }
 
     /**
@@ -113,6 +114,18 @@ php;
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
+    {
+        dd(__METHOD__);
+    }
+
+    public function json()
+    {
+        return response()->json($this->newsModel->getAllCategories())
+            ->header('Content-Disposition', 'attachment; filename = "json.txt"')
+            ->setEncodingOptions(JSON_UNESCAPED_UNICODE);
+    }
+
+    public function file()
     {
         dd(__METHOD__);
     }

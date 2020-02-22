@@ -37,6 +37,11 @@ class News extends Model
             'id' => 2,
             'name' => 'спорт',
             'slug' => 'sport'
+        ],
+        [
+            'id' => 3,
+            'name' => 'наука',
+            'slug' => 'nauka'
         ]
     ];
 
@@ -79,4 +84,11 @@ class News extends Model
             }
         }
     }
+
+    public function addNews($news)
+    {
+        $news['id']  = count($this->news) + 1;
+        $this->news[] = $news;
+    }
+
 }
