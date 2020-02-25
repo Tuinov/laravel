@@ -7,18 +7,8 @@
             <div class="card">
                 <div class="card-header">Добавить новость</div>
 
-                @if(session('success'))
-                    <div class="row justify-content-center">
-                        <div class="col-md-12">
-                            <div class="alert alert-success">
-                                {{ session()->get('success')  }}
-                            </div>
-                        </div>
-                    </div>
-                @endif
-
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.news.store') }}">
+                    <form enctype="multipart/form-data" method="POST" action="{{ route('admin.news.store') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -31,7 +21,7 @@
 
                         <div class="form-group row">
                             <label for="newsCategory" class="col-md-2 col-form-label text-md-right">Категория</label>
-                            <select name="category" id="newsCategory" class="form-control col-md-8">
+                            <select name="category_id" id="newsCategory" class="form-control col-md-8">
                                 @forelse($categories as $item)
                                     <option
                                             @if($item['id'] == old('category')) selected @endif
@@ -50,6 +40,11 @@
 
                                 <textarea id="newsText" type="text" class="col-md-8 form-control" name="text" autofocus>{{ old('text') }}
                                 </textarea>
+                        </div>
+
+                        <div class="form-group row">
+
+                                <input type="file" name="image">
                         </div>
 
                         <div class="form-group row mb-0">

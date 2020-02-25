@@ -18,9 +18,11 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
+
         @if(!empty($admin))
             @include('admin.menu')
             @else
@@ -29,6 +31,14 @@
 
 
         <main class="py-4">
+            @if(session('success'))
+            <div class="container alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{ session()->get('success')  }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @endif
             @yield('content')
         </main>
     </div>

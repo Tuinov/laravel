@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\News;
+use App\Categories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class NewsController extends BaseController
 {
@@ -21,8 +24,9 @@ class NewsController extends BaseController
     public function index()
     {
         $news = $this->newsModel->getAllNews();
+        $admin = true;
         //dd($news);
-        return view('news.index', compact('news'));
+        return view('news.index', compact('news', 'admin'));
     }
 
 
@@ -33,7 +37,8 @@ class NewsController extends BaseController
      */
     public function create()
     {
-        $categories = $this->newsModel->getAllCategories();
+        $categories = (new Categories)->getAllCategories();
+        //dd($categories);
         return view('admin.createNews', compact('categories'));
     }
 
@@ -46,9 +51,18 @@ class NewsController extends BaseController
     public function store(Request $request)
     {
         $request->flash();
-        $this->newsModel->addNews($request->except('_token'));
 
-        return redirect()->route('admin.news.create')->with(['success' => 'Успешно сохранено']);
+        $data = $request->input();
+
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['title']);
+        }
+        //dd($data);
+        DB::table('news')->insert(
+            $data
+        );
+
+        return redirect()->route('admin.news.index')->with(['success' => 'Успешно сохранено']);
     }
 
     /**

@@ -8,34 +8,22 @@
                 <div class="card-header">Добавить категорию</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('admin.categories.store') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">name</label>
+                            <label for="nameCategory" class="col-md-2 col-form-label text-md-right">Название</label>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <div class="col-md-8">
+                                <input id="nameCategory" type="text" class="form-control" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">slug</label>
+                            <label for="slug" class="col-md-2 col-form-label text-md-right">slug</label>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <div class="col-md-8">
+                                <input id="slug" type="text" class="form-control" name="slug" value="{{ old('slug') }}" required autocomplete="slug" autofocus>
                             </div>
                         </div>
 
