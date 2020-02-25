@@ -16,7 +16,7 @@
                     <a class="nav-link" href="{{ route('categories.index') }}">Категории</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.categories.index') }}">Админка</a>
+                    <a class="nav-link" href="{{ route('admin.news.index') }}">Админка</a>
                 </li>
             </ul>
 

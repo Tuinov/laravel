@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -23,7 +24,6 @@ class NewsController extends Controller
     public function index()
     {
         $news = $this->newsModel->getAllNews();
-        //dd($news);
         return view('news.index', compact('news'));
     }
 
@@ -55,17 +55,17 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-{
-    //dd(__METHOD__, $id);
-    $news = $this->newsModel->getOneNews($id);
-    //dd($news);
-    return view('news.show', compact('news'));
-}
-
-    public function showCategory($id)
     {
-        //
+
+    $news = $this->newsModel->getOneNews($id);
+
+        if(!empty($news)) {
+            return view('news.show', ['news' => $news]);
+        } else {
+            return redirect()->route('home');
+        }
     }
+
 
     /**
      * Show the form for editing the specified resource.
