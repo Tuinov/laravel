@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categories;
+use App\News;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -19,14 +20,19 @@ class CategoryController extends Controller
     public function index()
     {
         $admin = false;
-        $categories = $this->categoriesModel->getAllCategories();
+        $categories = DB::table('categories')->orderBy('id', 'desc')->get();
         return view('news.categories', compact('categories', 'admin'));
     }
 
     public function show($idCategory)
     {
-         $categoryName = $this->categoriesModel->getCategoryName($idCategory);
-        $news = $this->categoriesModel->getNewsCategory($idCategory);
+         //$categoryName = $this->categoriesModel->getCategoryName($idCategory);
+        $categoryName = DB::table('categories')->select('name')
+            ->where('id', $idCategory)
+            ->get()[0]->name;
+
+        $news = News::query()->where('category_id', $idCategory)->paginate(5);
+
         return view('news.index', compact('news', 'categoryName'));
     }
 }

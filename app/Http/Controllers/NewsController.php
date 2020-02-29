@@ -8,12 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
-    private $newsModel;
-
     public function __construct()
     {
         //  $this->middleware('auth');
-        $this->newsModel = new News;
     }
 
     /**
@@ -23,7 +20,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = $this->newsModel->getAllNews();
+        $news = News::query()->orderBy('id', 'desc')->paginate(5);
         return view('news.index', compact('news'));
     }
 
@@ -54,10 +51,10 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(News $news)
     {
 
-    $news = $this->newsModel->getOneNews($id);
+        //$news = DB::table('news')->find($id);
 
         if(!empty($news)) {
             return view('news.show', ['news' => $news]);

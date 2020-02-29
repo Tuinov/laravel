@@ -11,10 +11,10 @@
                 <div class="col-md-12 card">
                     <div class="card-body">
                     <h1>Категория:
-                        <a href="{{ route('category.show', ['idCategory' => $item['id']]) }}">{{ $item['name'] }}</a>
+                        <a href="{{ route('category.show', ['idCategory' => $item->id]) }}">{{ $item->name }}</a>
                     </h1>
                     @if($admin)
-                        <p><a href="{{ route('category.show', ['idCategory' => $item['id']]) }}">редактировать
+                        <p><a href="{{ route('category.show', ['idCategory' => $item->id]) }}">редактировать
                                 категорию</a>
                         </p>
 

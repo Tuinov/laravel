@@ -18,7 +18,7 @@ class CreateNewsTable extends Migration
             $table->string('_token');
             $table->string('title');
             $table->text('text');
-            $table->string('image');
+            $table->string('image')->nullable(true);
             $table->string('slug')->unique();
             $table->unsignedBigInteger('category_id');
             $table->timestamp('created_at')->useCurrent();
