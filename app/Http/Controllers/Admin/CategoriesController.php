@@ -10,11 +10,10 @@ use Illuminate\Http\Request;
 class CategoriesController extends BaseController
 {
 
-    public $newsCategories;
 
     public function __construct()
     {
-        $this->newsCategories = new Categories();
+
     }
     /**
      * Display a listing of the resource.
@@ -24,7 +23,7 @@ class CategoriesController extends BaseController
     public function index()
     {
         $admin = true;
-        $categories = $this->newsCategories->getAllCategories();
+        $categories = DB::table('categories')->orderBy('id', 'desc')->get();
         return view('admin.index', compact('categories', 'admin'));
 
     }
@@ -76,9 +75,6 @@ class CategoriesController extends BaseController
 
     }
 
-    public function getNameCategory($idCategory) {
-
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -116,7 +112,7 @@ class CategoriesController extends BaseController
 
     public function json()
     {
-        return response()->json($this->newsModel->getAllCategories())
+        return response()->json(DB::table('news')->orderBy('id', 'desc')->get())
             ->header('Content-Disposition', 'attachment; filename = "json.txt"')
             ->setEncodingOptions(JSON_UNESCAPED_UNICODE);
     }

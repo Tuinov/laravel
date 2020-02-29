@@ -20,7 +20,7 @@
                 <div class="col-md-12 card">
                     <div class="card-body col-md-8">
                         <h2>{{ $item->id }} . {{ $item->title }}</h2>
-                        <a href="{{ route('show', ['id' => $item->id]) }}">подробнее...</a>
+                        <a href="{{ route('show', $item) }}">подробнее...</a>
                     </div>
 {{--                    <div class="col-md-4 card ml-auto">--}}
 {{--                        <a class="btn btn-primary" href="">редактировать новость</a>--}}
@@ -32,6 +32,7 @@
             @empty
                 <p>нет новостей</p>
             @endforelse
+            {{ $news->links() }}
         </div>
     </div>
 @endsection

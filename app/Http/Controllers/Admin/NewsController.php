@@ -10,12 +10,12 @@ use Illuminate\Support\Str;
 
 class NewsController extends BaseController
 {
-    public $newsModel;
 
     public function __construct()
     {
-        $this->newsModel = new News;
+
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +23,7 @@ class NewsController extends BaseController
      */
     public function index()
     {
-        $news = $this->newsModel->getAllNews();
+        $news = News::query()->orderBy('id', 'desc')->paginate(5);
         $admin = true;
         //dd($news);
         return view('news.index', compact('news', 'admin'));
@@ -37,7 +37,8 @@ class NewsController extends BaseController
      */
     public function create()
     {
-        $categories = (new Categories)->getAllCategories();
+        $categories = Categories::query()->select('name')->get();
+
         //dd($categories);
         return view('admin.createNews', compact('categories'));
     }
@@ -45,11 +46,12 @@ class NewsController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+       // if($request->isMethod('post')) {}
         $request->flash();
 
         $data = $request->input();
@@ -57,6 +59,13 @@ class NewsController extends BaseController
         if (empty($data['slug'])) {
             $data['slug'] = Str::slug($data['title']);
         }
+
+        if ($request->file('image')) {
+            $path = \Storage::putFile('public', $request->file('image'));
+            $url = \Storage::url($path);
+            $data['image'] = $url;
+        }
+
         //dd($data);
         DB::table('news')->insert(
             $data
@@ -68,47 +77,55 @@ class NewsController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(News $news)
     {
-        $news = $this->newsModel->getOneNews($id);
+        $admin = true;
+        //$news = DB::table('news')->find($id);
         //dd($news);
-        return view('news.show', compact('news'));
+        return view('news.show', compact('news', 'admin'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(News $news)
     {
-        dd(__METHOD__, $id);
+        $categories = (new Categories)->getAllCategories();
+        //dd($categories);
+        return view('admin.createNews', compact('news','categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, News $news)
     {
-        dd(__METHOD__, $this->news, $this->categories);
+        return redirect()->route('admin.news.index')->with(['success' => 'Успешно изменено']);
+
+        //dd(__METHOD__, $news);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($news)
     {
-        dd(__METHOD__, $this->news, $this->categories);
+        //dd(__METHOD__, $news);
+        $news::delete();
+        return redirect()->route('admin.news.index')->with(['success' => 'Успешно сохранено']);
+
     }
 }

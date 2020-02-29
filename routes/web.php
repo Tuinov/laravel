@@ -16,7 +16,7 @@ Route::get('/','NewsController@index');
 
 Route::group([], function (){
     Route::get('/news', 'NewsController@index')->name('home');
-    Route::get('/news/{id}', 'NewsController@show')->name('show');
+    Route::get('/news/{news}', 'NewsController@show')->name('show');
 });
 
 Route::get('/categories', 'CategoryController@index')->name('categories.index');
@@ -32,8 +32,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], function (){
     Route::resource('news', 'NewsController');
-    Route::get('/json', 'CategoriesController@json')->name('categories.json');
-    Route::get('/file', 'CategoriesController@file')->name('categories.file');
+
 });
 
 //php artisan route:list
