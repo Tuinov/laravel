@@ -20,7 +20,8 @@
                 <div class="col-md-12 card">
                     <div class="card-body col-md-8">
                         <h2>{{ $item->id }} . {{ $item->title }}</h2>
-                        <a href="{{ route('show', $item) }}">подробнее...</a>
+                        <a href="@if(!empty($admin)){{ route('admin.news.show', $item) }}
+                        @else {{ route('show', $item) }}@endif">подробнее...</a>
                     </div>
 {{--                    <div class="col-md-4 card ml-auto">--}}
 {{--                        <a class="btn btn-primary" href="">редактировать новость</a>--}}

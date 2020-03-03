@@ -2,6 +2,7 @@
 
 use Faker\Factory;
 use Illuminate\Database\Seeder;
+use App\Categories;
 
 class CategoriesSeeder extends Seeder
 {
@@ -12,6 +13,7 @@ class CategoriesSeeder extends Seeder
      */
     public function run()
     {
+        //\factory(Categories::class, 10)->create();
         DB::table('categories')->insert($this->getData());
     }
 

@@ -12,26 +12,17 @@ class Categories extends Model
 
     public function news()
     {
-        return $this->hasMany(News::class, 'category_id');
+        return $this->hasMany(News::class, 'id');
     }
 
-    public function getNewsCategory($idCategory)
+
+    public static function rules()
     {
-        $news = DB::select('select * from news where category_id = :id',
-            ['id' => $idCategory]);
 
-        return $news;
-    }
+        return [
+            'name' => 'required|min:5',
+            'slug' => 'required|max:5000',
 
-    public function getCategoryName($id)
-    {
-//        $name = DB::select('select name from categories where id = :id',
-//            ['id' => $id])[0]
-//        ->name;
-        $name = DB::table('categories')->where('id', $id)->value('name');
-        //dd($name);
-        return $name;
-
-
+        ];
     }
 }

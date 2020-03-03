@@ -2,27 +2,14 @@
 
 @section('content')
     <div class="container">
-        @if(empty($admin))
+        @if(!empty($admin))
             <nav class="navbar">
                 <a class="btn btn-primary" href="{{ route('admin.news.edit', $news) }}">Редактировать новость</a>
-{{--                {{ method_field('PUT') }}--}}
-                <form enctype="multipart/form-data" method="POST"
-                      action="{{ route('admin.news.destroy', $news) }}">
+                <a class="btn btn-danger" href="{{ route('news.delete', $news) }}">Удалить новость</a>
 
-                    @csrf
-                    @method('DELETE')
-
-
-                    <div class="form-group row mb-0">
-                        <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-danger">
-                                удалить новость
-                            </button>
-                        </div>
-                    </div>
-                </form>
             </nav>
         @endif
+
         <div class="row justify-content-center">
 
             <div class="card">

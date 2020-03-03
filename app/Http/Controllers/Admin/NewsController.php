@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\News;
 use App\Categories;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -37,7 +38,7 @@ class NewsController extends BaseController
      */
     public function create()
     {
-        $categories = Categories::query()->select('name')->get();
+        $categories = Categories::query()->get();
 
         //dd($categories);
         return view('admin.createNews', compact('categories'));
@@ -54,24 +55,29 @@ class NewsController extends BaseController
        // if($request->isMethod('post')) {}
         $request->flash();
 
-        $data = $request->input();
+        $news = new News();
 
-        if (empty($data['slug'])) {
-            $data['slug'] = Str::slug($data['title']);
+        if (! $request->input('slug')) {
+            $news->slug = Str::slug($request->input('title'));
         }
 
         if ($request->file('image')) {
             $path = \Storage::putFile('public', $request->file('image'));
             $url = \Storage::url($path);
-            $data['image'] = $url;
+            $news->image = $url;
         }
 
-        //dd($data);
-        DB::table('news')->insert(
-            $data
-        );
+        $this->validate($request, News::rules());
+        $result = $news->fill($request->all())->save();
 
-        return redirect()->route('admin.news.index')->with(['success' => 'Успешно сохранено']);
+        if ($result) {
+            return redirect()->route('admin.news.index')
+                ->with(['success' => 'Успешно сохранено']);
+
+        } else {
+            return redirect()->route('admin.news.create')
+                ->with(['danger' => 'ошибка сохранения!!']);
+        }
     }
 
     /**
@@ -82,10 +88,8 @@ class NewsController extends BaseController
      */
     public function show(News $news)
     {
-        $admin = true;
-        //$news = DB::table('news')->find($id);
-        //dd($news);
-        return view('news.show', compact('news', 'admin'));
+
+        return view('news.show', ['news' => $news, 'admin' => 1]);
     }
 
     /**
@@ -96,7 +100,7 @@ class NewsController extends BaseController
      */
     public function edit(News $news)
     {
-        $categories = (new Categories)->getAllCategories();
+        $categories = Categories::query()->get();
         //dd($categories);
         return view('admin.createNews', compact('news','categories'));
     }
@@ -123,9 +127,13 @@ class NewsController extends BaseController
      */
     public function destroy($news)
     {
+        /*
+         * не приходит объект news!!! только id
+         * хотя прописал отдельный роут - самый последний
+         */
         //dd(__METHOD__, $news);
-        $news::delete();
-        return redirect()->route('admin.news.index')->with(['success' => 'Успешно сохранено']);
+        News::query()->where('id', '=', $news)->delete();
+        return redirect()->route('admin.news.index')->with(['success' => 'Новость успешно удалена!']);
 
     }
 }

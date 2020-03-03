@@ -14,7 +14,7 @@
                         <a href="{{ route('category.show', ['idCategory' => $item->id]) }}">{{ $item->name }}</a>
                     </h1>
                     @if($admin)
-                        <p><a href="{{ route('category.show', ['idCategory' => $item->id]) }}">редактировать
+                        <p><a href="{{ route('admin.categories.edit',  $item) }}">редактировать
                                 категорию</a>
                         </p>
 
