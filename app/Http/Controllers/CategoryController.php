@@ -9,25 +9,23 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    private $categoriesModel;
 
     public function __construct()
     {
         //  $this->middleware('auth');
-        $this->categoriesModel = new Categories;
     }
 
     public function index()
     {
         $admin = false;
-        $categories = DB::table('categories')->orderBy('id', 'desc')->get();
+        $categories = Categories::query()->orderBy('id', 'desc')->get();
         return view('news.categories', compact('categories', 'admin'));
     }
 
     public function show($idCategory)
     {
-         //$categoryName = $this->categoriesModel->getCategoryName($idCategory);
-        $categoryName = DB::table('categories')->select('name')
+
+        $categoryName = Categories::query()->select('name')
             ->where('id', $idCategory)
             ->get()[0]->name;
 

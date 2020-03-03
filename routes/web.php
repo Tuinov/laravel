@@ -19,6 +19,7 @@ Route::group([], function (){
     Route::get('/news/{news}', 'NewsController@show')->name('show');
 });
 
+
 Route::get('/categories', 'CategoryController@index')->name('categories.index');
 Route::get('/category/{idCategory}', 'CategoryController@show')->name('category.show');
 
@@ -34,6 +35,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
     Route::resource('news', 'NewsController');
 
 });
+
+Route::get('/news/delete/{news}', 'admin\NewsController@destroy')->name('news.delete');
+
 
 //php artisan route:list
 

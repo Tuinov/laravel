@@ -21,12 +21,14 @@ class NewsSeeder extends Seeder
         $data = [];
         for($i = 0; $i < 10; $i++) {
             $data[] = [
-                '_token' => $faker->unique()->word,
-                'title' => $faker->realText(rand(20,50)),
+                'title' => $faker->realText(rand(20,30)),
                 'text' => $faker->realText(rand(1000,2000)),
                 'image' => '',
                 'slug' => $faker->unique()->word,
-                'category_id' => 1
+                'category_id' => (rand(1,10))
+//                'category_id' => function() {
+//                return factory(App\Categories::class)->create()->id;
+//                },
             ];
         }
         return $data;

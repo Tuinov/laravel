@@ -31,9 +31,14 @@
 
 
         <main class="py-4">
-            @if(session('success'))
-            <div class="container alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{ session()->get('success')  }}</strong>
+
+            @if(session('success') || session('danger'))
+            <div class="container alert
+            @if(session('success')) alert-success @else alert-danger @endif
+             alert-dismissible fade show" role="alert">
+                @if(session('success'))<strong>{{ session()->get('success')  }}</strong>
+                    @else <strong>{{ session()->get('danger')  }}</strong>
+            @endif
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
