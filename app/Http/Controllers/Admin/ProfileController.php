@@ -19,11 +19,14 @@ class ProfileController extends Controller
         $user = \Auth::user();
 
         if($request->isMethod('post')) {
+
+//            $this->validate($request, User::rules());
+
             if(Hash::check($request->post('password'), $user->password)) {
                 $user->fill()->save();
             }
         }
-        
+
         //dd($user);
         return view('admin.profile', ['user' => $user]);
     }
