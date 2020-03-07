@@ -19,6 +19,7 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(Categories::class, function () {
+    // перенести в провайдер
     $faker = Faker\Factory::create('ru_RU');
     //$name = $faker->sentence(2);
     $name = $faker->realText(rand(20,50));

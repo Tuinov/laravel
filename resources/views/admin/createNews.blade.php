@@ -72,8 +72,8 @@
                                 </div>
                             @endif
 
-                                <textarea id="newsText" type="text" class="col-md-8 form-control" name="text" autofocus>
-                                    {{ $news->text ??old('text') }}
+                                <textarea id="newsText" type="text" class="col-md-8 form-control"
+                                          name="text" autofocus>{{ $news->text ??old('text') }}
                                 </textarea>
                         </div>
 

@@ -2,13 +2,18 @@
 
 @section('content')
     <div class="container">
-        @if(!empty($admin))
-            <nav class="navbar">
+{{--        @if(!empty($admin))--}}
+            <form action="{{ route('admin.news.destroy', $news) }}" method="post">
                 <a class="btn btn-primary" href="{{ route('admin.news.edit', $news) }}">Редактировать новость</a>
-                <a class="btn btn-danger" href="{{ route('news.delete', $news) }}">Удалить новость</a>
 
-            </nav>
-        @endif
+                @csrf
+                @method('DELETE')
+
+                <button type="submit" class="btn btn-danger">Удалить новость</button>
+            </form>
+
+{{--        @endif--}}
+
 
         <div class="row justify-content-center">
 

@@ -127,10 +127,7 @@ class NewsController extends BaseController
      */
     public function destroy($news)
     {
-        /*
-         * не приходит объект news!!! только id
-         * хотя прописал отдельный роут - самый последний
-         */
+
         //dd(__METHOD__, $news);
         News::query()->where('id', '=', $news)->delete();
         return redirect()->route('admin.news.index')->with(['success' => 'Новость успешно удалена!']);

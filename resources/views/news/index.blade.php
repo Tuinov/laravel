@@ -18,14 +18,22 @@
 
             @forelse($news as $item)
                 <div class="col-md-12 card">
-                    <div class="card-body col-md-8">
+                    <div class="card-body col-md-6">
                         <h2>{{ $item->id }} . {{ $item->title }}</h2>
                         <a href="@if(!empty($admin)){{ route('admin.news.show', $item) }}
+
                         @else {{ route('show', $item) }}@endif">подробнее...</a>
+
                     </div>
-{{--                    <div class="col-md-4 card ml-auto">--}}
-{{--                        <a class="btn btn-primary" href="">редактировать новость</a>--}}
-{{--                    </div>--}}
+                    <div class="col-md-4">
+                        <form action="{{ route('admin.news.destroy', $item) }}" method="post">
+
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="btn btn-danger">Удалить новость</button>
+                        </form>
+                    </div>
 
                 </div>
 

@@ -19,28 +19,44 @@ Route::group([], function (){
     Route::get('/news/{news}', 'NewsController@show')->name('show');
 });
 
-
 Route::get('/categories', 'CategoryController@index')->name('categories.index');
 Route::get('/category/{idCategory}', 'CategoryController@show')->name('category.show');
 
-//Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function (){
-//    Route::resource('news', 'NewsController');
-//});
-
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], function (){
+Route::group(['namespace' => 'Admin',
+              'prefix' => 'admin',
+              'as' => 'admin.',
+            //  'middleware' => 'auth'
+    ], function (){
     Route::resource('categories', 'CategoriesController');
 });
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], function (){
+Route::group(['namespace' => 'Admin',
+    'prefix' => 'admin',
+    'as' => 'admin.',
+    // 'middleware' => 'auth'
+], function (){
     Route::resource('news', 'NewsController');
 
+    Route::match(['get', 'post'], '/profile', [
+        'uses' => 'ProfileController@update',
+        'as' => 'updateProfile'
+    ]);
 });
 
-Route::get('/news/delete/{news}', 'admin\NewsController@destroy')->name('news.delete');
+
+
+
 
 
 //php artisan route:list
 
 Auth::routes();
+
+    // Authentication Routes...
+//    $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
+//    $this->post('login', 'Auth\LoginController@login');
+//    $this->post('logout', 'Auth\LoginController@logout')->name('logout');
+
+
 
 

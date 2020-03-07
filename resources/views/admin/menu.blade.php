@@ -16,6 +16,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('categories.index') }}">Категории</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('categories.index') }}">Пользователи</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
