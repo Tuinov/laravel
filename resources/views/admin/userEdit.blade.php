@@ -9,8 +9,8 @@
                     <div class="card-header">Редактировать профиль</div>
 
                     <div class="card-body">
-                        <form enctype="multipart/form-data" method="POST"
-                              action="{{ route('admin.news.update', $user) }}">
+                        <form enctype="multipart/form-data" method="post"
+                              action="{{ route('updateProfile') }}">
 
                             @csrf
 
@@ -46,22 +46,6 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="password" class="col-md-2 col-form-label text-md-right">password</label>
-                                <div class="col-md-8">
-                                    <input id="password" type="password" class="form-control" name="password"
-                                           value="{{ $user->password }}" autocomplete="password" autofocus>
-                                    @if($errors->has('password'))
-                                        <div class="alert alert-danger" role="alert">
-
-                                            @foreach($errors->get('password') as $error)
-                                                {{ $error }}
-                                            @endforeach
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
@@ -74,6 +58,16 @@
                         </form>
                     </div>
                 </div>
+                <div class="card-header">Новости пользователя</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Новость</li>
+                            <li>Новость</li>
+                            <li>Новость</li>
+                            <li>Новость</li>
+                        </ul>
+
+                    </div>
             </div>
         </div>
     </div>

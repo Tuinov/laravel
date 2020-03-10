@@ -28,6 +28,6 @@ class ProfileController extends Controller
         }
 
         //dd($user);
-        return view('admin.profile', ['user' => $user]);
+        return view('profile', ['user' => $user]);
     }
 }
