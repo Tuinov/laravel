@@ -47,18 +47,15 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-2 col-form-label text-md-right">password</label>
+                                <label for="name" class="col-md-2 col-form-label text-md-right">Роль</label>
                                 <div class="col-md-8">
-                                    <input id="password" type="password" class="form-control" name="password"
-                                           value="{{ $user->password }}" autocomplete="password" autofocus>
-                                    @if($errors->has('password'))
-                                        <div class="alert alert-danger" role="alert">
-
-                                            @foreach($errors->get('password') as $error)
-                                                {{ $error }}
-                                            @endforeach
-                                        </div>
-                                    @endif
+                                  <h3>@if($user->is_admin)админ @else пользователь @endif
+                                      <a href="{{ route('admin.userToggleRole', $user) }}">
+                                          <button type="button" class="btn btn-secondary">
+                                              изменить роль
+                                          </button>
+                                      </a>
+                                  </h3>
                                 </div>
                             </div>
 
@@ -66,7 +63,7 @@
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                         изменить
+                                         изменить данные
                                     </button>
                                 </div>
                             </div>
@@ -74,6 +71,16 @@
                         </form>
                     </div>
                 </div>
+                <div class="card-header">Новости пользователя</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Новость</li>
+                            <li>Новость</li>
+                            <li>Новость</li>
+                            <li>Новость</li>
+                        </ul>
+
+                    </div>
             </div>
         </div>
     </div>

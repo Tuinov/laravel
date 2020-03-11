@@ -76,6 +76,10 @@
                                           name="text" autofocus>{{ $news->text ??old('text') }}
                                 </textarea>
                         </div>
+                            <div class="form-group row">
+
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            </div>
 
                         <div class="form-group row">
 

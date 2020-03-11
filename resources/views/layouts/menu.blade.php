@@ -15,9 +15,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('categories.index') }}">Категории</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.news.index') }}">Админка</a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a class="nav-link" href="{{ route('admin.news.index') }}">Админка</a>--}}
+{{--                </li>--}}
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -25,11 +25,14 @@
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link" href="{{ route('vkLogin') }}">{{ __('VK') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Войти') }}</a>
                     </li>
                     @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
                         </li>
                     @endif
                 @else
@@ -40,7 +43,7 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('admin.updateProfile') }}">
+                            <a class="dropdown-item" href="{{ route('editProfile') }}">
                               Настройки профиля
                             </a>
 
@@ -58,6 +61,7 @@
                                                      document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
+
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf

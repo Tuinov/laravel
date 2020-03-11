@@ -20,13 +20,11 @@
                 <div class="col-md-12 card">
                     <div class="card-body col-md-6">
                         <h2>{{ $item->id }} . {{ $item->title }}</h2>
-                        <a href="@if(! empty(Auth::user()->is_admin)){{ route('admin.news.show', $item) }}
-
-                        @else {{ route('show', $item) }}@endif">подробнее...</a>
+                        <a href="">подробнее...</a>
 
                     </div>
                     <div class="col-md-4">
-                        <form action="{{ route('admin.news.destroy', $item) }}" method="post">
+                        <form action="" method="post">
 
                             @csrf
                             @method('DELETE')
@@ -41,7 +39,7 @@
             @empty
                 <p>нет новостей</p>
             @endforelse
-            {{ $news->links() }}
+{{--            {{ $news->links() }}--}}
         </div>
     </div>
 @endsection

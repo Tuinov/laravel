@@ -23,7 +23,7 @@
 <body>
     <div id="app">
 
-        @if(!empty($admin))
+        @if(! empty(Auth::user()->is_admin))
             @include('admin.menu')
             @else
             @include('layouts.menu')

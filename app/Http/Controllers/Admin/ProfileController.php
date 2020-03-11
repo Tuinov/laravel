@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Categories;
 use Illuminate\Auth;
 use App\News;
 use App\User;
@@ -11,6 +11,27 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+    protected function validateRules()
+    {
+        return [
+            'name' => 'required|string|max:10',
+            'email' => 'required|email|unique:users,email,' . \Auth::id(),
+            'password' => 'required',
+            'newPassword' => 'required|min:3',
+        ];
+    }
+
+    protected function attributeNames()
+    {
+        return [
+            'newPassword' => 'новый пароль'
+        ];
+    }
+
+    public function edit(User $user)
+    {
+        return view('profile', compact('user'));
+    }
 
 
     public function update(Request $request)
@@ -18,15 +39,29 @@ class ProfileController extends Controller
 
         $user = \Auth::user();
 
-        if($request->isMethod('post')) {
+        if ($request->isMethod('post'))
+        {
+            $this->validate($request,
+                $this->validateRules(), [],
+                $this->attributeNames()
+            );
 
-//            $this->validate($request, User::rules());
+            if (Hash::check($request->post('password'), $user->password))
+            {
+                $user->fill([
+                    'name' => $request->post('name'),
+                    'email' => $request->post('email'),
+                    'password' => Hash::make($request->post('newPassword')),
+                ])->save();
 
-            if(Hash::check($request->post('password'), $user->password)) {
-                $user->fill()->save();
+                return redirect('profile')->with(['success' => 'Данные успешно изменены!']);
+
+            } else {
+                $errors['password'][] = 'Неверно введён текущий пароль!!';
+                return redirect('profile')->withErrors($errors);
+
             }
         }
-
         //dd($user);
         return view('admin.profile', ['user' => $user]);
     }

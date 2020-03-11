@@ -25,9 +25,7 @@ class NewsController extends BaseController
     public function index()
     {
         $news = News::query()->orderBy('id', 'desc')->paginate(5);
-        $admin = true;
-        //dd($news);
-        return view('news.index', compact('news', 'admin'));
+        return view('news.index', compact('news'));
     }
 
 
@@ -38,7 +36,7 @@ class NewsController extends BaseController
      */
     public function create()
     {
-        $categories = Categories::query()->get();
+        $categories = Categories::all();
 
         //dd($categories);
         return view('admin.createNews', compact('categories'));
@@ -53,7 +51,7 @@ class NewsController extends BaseController
     public function store(Request $request)
     {
        // if($request->isMethod('post')) {}
-        $request->flash();
+        //$request->flash();
 
         $news = new News();
 
@@ -89,7 +87,7 @@ class NewsController extends BaseController
     public function show(News $news)
     {
 
-        return view('news.show', ['news' => $news, 'admin' => 1]);
+        return view('news.show', ['news' => $news]);
     }
 
     /**
@@ -100,7 +98,7 @@ class NewsController extends BaseController
      */
     public function edit(News $news)
     {
-        $categories = Categories::query()->get();
+        $categories = Categories::all();
         //dd($categories);
         return view('admin.createNews', compact('news','categories'));
     }

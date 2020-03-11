@@ -9,7 +9,8 @@ class News extends Model
 {
     //public $timestamps = false;
 
-    protected $fillable = ['title', 'text', 'image', 'slug', 'category_id'];
+    protected $fillable = [
+        'title', 'text', 'image', 'slug', 'category_id', 'user_id'];
 
 
     public function category()

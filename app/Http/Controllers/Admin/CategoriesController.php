@@ -25,9 +25,8 @@ class CategoriesController extends BaseController
      */
     public function index()
     {
-        $admin = true;
         $categories = Categories::query()->orderBy('id', 'desc')->get();
-        return view('news.categories', compact('categories', 'admin'));
+        return view('news.categories', compact('categories'));
 
     }
 
@@ -38,8 +37,7 @@ class CategoriesController extends BaseController
      */
     public function create()
     {
-        $admin = true;
-        return view('admin.createCategory', compact('admin'));
+        return view('admin.createCategory');
     }
 
     /**

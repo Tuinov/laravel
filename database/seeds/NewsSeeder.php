@@ -25,7 +25,8 @@ class NewsSeeder extends Seeder
                 'text' => $faker->realText(rand(1000,2000)),
                 'image' => '',
                 'slug' => $faker->unique()->word,
-                'category_id' => (rand(1,10))
+                'category_id' => (rand(1,10)),
+                'user_id' => (rand(1,5)),
 //                'category_id' => function() {
 //                return factory(App\Categories::class)->create()->id;
 //                },
