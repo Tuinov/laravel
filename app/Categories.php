@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categories extends Model
 {
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = ['name', 'slug', 'image'];
 
 
     public function news()
@@ -26,10 +26,5 @@ class Categories extends Model
         ];
     }
 
-    public static function isCategoryInDB($categoryName) {
-        if(! empty(DB::table('categories')->where('name', $categoryName))) {
-            return true;
-        } else
-            return false;
-    }
+
 }
