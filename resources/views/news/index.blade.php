@@ -18,22 +18,23 @@
 
             @forelse($news as $item)
                 <div class="col-md-12 card">
-                    <div class="card-body col-md-6">
+                    <div class="card-body ">
                         <h2>{{ $item->id }} . {{ $item->title }}</h2>
-                        <a href="@if(! empty(Auth::user()->is_admin)){{ route('admin.news.show', $item) }}
+                        <a  class="btn btn-success" href="@if(! empty(Auth::user()->is_admin)){{ route('admin.news.show', $item) }}
 
-                        @else {{ route('show', $item) }}@endif">подробнее...</a>
+                        @else {{ route('show', $item) }}@endif">Подробнее..</a>
 
                     </div>
+
+                    @if(! empty(Auth::user()->is_admin))
                     <div class="col-md-4">
                         <form action="{{ route('admin.news.destroy', $item) }}" method="post">
-
                             @csrf
                             @method('DELETE')
-
                             <button type="submit" class="btn btn-danger">Удалить новость</button>
                         </form>
                     </div>
+                    @endif
 
                 </div>
 

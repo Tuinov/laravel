@@ -18,9 +18,6 @@
                             <h2>{{ $item->id }} . {{ $item->name }}</h2>
                         </a>
                         <a href="{{ route('admin.user.edit', $item) }}">редактировать</a>
-                        <button type="button" class="btn btn-primary" >
-                            админ
-                        </button>
 
                     </div>
                     <div class="col-md-4">

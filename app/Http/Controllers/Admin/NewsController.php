@@ -53,6 +53,12 @@ class NewsController extends BaseController
        // if($request->isMethod('post')) {}
         //$request->flash();
 
+        $array = [];
+        foreach ($request as $key=>$value) {
+            $array[$key] = $value;
+        }
+        dd($array);
+
         $news = new News();
 
         if (! $request->input('slug')) {
@@ -99,6 +105,7 @@ class NewsController extends BaseController
     public function edit(News $news)
     {
         $categories = Categories::all();
+        //$request->flash();
         //dd($categories);
         return view('admin.createNews', compact('news','categories'));
     }
@@ -112,6 +119,10 @@ class NewsController extends BaseController
      */
     public function update(Request $request, News $news)
     {
+        //dd($request->text, $news);
+        $this->validate($request, News::rules());
+        $result = $news->fill($request->all())->update();
+
         return redirect()->route('admin.news.index')->with(['success' => 'Успешно изменено']);
 
         //dd(__METHOD__, $news);

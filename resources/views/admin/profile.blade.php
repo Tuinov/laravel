@@ -50,7 +50,7 @@
                                 <label for="password" class="col-md-2 col-form-label text-md-right">password</label>
                                 <div class="col-md-8">
                                     <input id="password" type="password" class="form-control" name="password"
-                                           value="{{ $user->password }}" autocomplete="password" autofocus>
+                                           value="" autocomplete="password" autofocus>
                                     @if($errors->has('password'))
                                         <div class="alert alert-danger" role="alert">
 

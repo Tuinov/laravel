@@ -13,7 +13,7 @@ class LoginController extends Controller
 {
     public function loginVK()
     {
-        if(Auth::id()) {
+        if(Auth::check()) {
             return redirect()->route('home');
         }
         return Socialite::with('vkontakte')->redirect();

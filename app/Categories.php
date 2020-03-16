@@ -25,4 +25,11 @@ class Categories extends Model
 
         ];
     }
+
+    public static function isCategoryInDB($categoryName) {
+        if(! empty(DB::table('categories')->where('name', $categoryName))) {
+            return true;
+        } else
+            return false;
+    }
 }

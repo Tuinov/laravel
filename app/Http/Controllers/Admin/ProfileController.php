@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Categories;
-use Illuminate\Auth;
+use Illuminate\Support\Facades\Auth;
 use App\News;
 use App\User;
 use Illuminate\Http\Request;
@@ -28,9 +28,10 @@ class ProfileController extends Controller
         ];
     }
 
-    public function edit(User $user)
+    public function edit()
     {
-        return view('profile', compact('user'));
+        $user = Auth::user();
+        return view('admin.profile', compact('user'));
     }
 
 

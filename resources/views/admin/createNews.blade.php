@@ -48,11 +48,10 @@
                             <select name="category_id" id="newsCategory" class="form-control col-md-8">
                                 @forelse($categories as $item)
                                     <option
-                                            @if($item['id'] == old('category_id')) selected @endif
+                                            @if($item['id'] == $news->category_id) selected @endif
                                             value="{{ $item['id'] }}">
                                             {{ $item['name'] }}
                                     </option>
-                                    <option value="123">неправильная</option>
                                 @empty
                                     <h2>нет категорий</h2>
                                 @endforelse
@@ -99,4 +98,18 @@
         </div>
     </div>
 </div>
+
+<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+<script>
+    var options = {
+        filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+        filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+        filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+        filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+    };
+</script>
+<script>
+    CKEDITOR.replace('newsText', options);
+</script>
+
 @endsection
